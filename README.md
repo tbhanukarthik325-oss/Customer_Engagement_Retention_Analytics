@@ -3,7 +3,7 @@ Customer Engagement & Product Utilization Analytics for Retention Strategy
 An interactive analytics dashboard built with Python, Pandas, Plotly, and Streamlit to explore customer engagement, product utilization, and retention patterns in banking.
 
 🔗 Project Links
-Live Dashboard: customerengagementretentionanalytics-4zcqxhz53hucatvziukjqx.streamlit.app
+Live Dashboard: https://customerengagementretentionanalytics-4zcqxhz53hucatvziukjqx.streamlit.app/
 GitHub Repository: https://github.com/tbhanukarthik325-oss/Customer_Engagement_Retention_Analytics.git
 
 📌 Project Overview
