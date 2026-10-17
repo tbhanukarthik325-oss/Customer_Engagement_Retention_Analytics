@@ -5,10 +5,240 @@ import plotly.express as px
 
 # Page configuration
 st.set_page_config(
-    page_title="Customer Engagement & Retention Analytics",
+    page_title="Customer Retention Analytics",
     page_icon="📊",
     layout="wide"
 )
+
+
+
+st.markdown("""
+<style>
+
+/* Neon sidebar */
+[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #05070D, #0B1120, #0F172A);
+    border-right: 1px solid #2563EB;
+}
+
+/* Sidebar headings */
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3 {
+    color: #38BDF8 !important;
+    text-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
+}
+
+/* Sidebar labels */
+[data-testid="stSidebar"] label,
+[data-testid="stSidebar"] p {
+    color: #FFFFFF !important;
+}
+
+/* Highlight sidebar controls */
+[data-testid="stSidebar"] input:focus {
+    border-color: #38BDF8 !important;
+    box-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
+}
+
+/* Main black background */
+.stApp,
+[data-testid="stAppViewContainer"],
+[data-testid="stMain"] {
+    background-color: #05070D;
+    color: #FFFFFF;
+}
+
+/* Neon blue headings */
+.stApp h1,
+.stApp h2,
+.stApp h3,
+.stApp h4 {
+    color: #38BDF8 !important;
+    text-shadow: 0 0 8px rgba(56, 189, 248, 0.25);
+}
+
+/* Main text */
+.stApp p,
+.stApp li,
+.stApp label {
+    color: #E5E7EB;
+}
+
+/* Dark sidebar */
+[data-testid="stSidebar"] {
+    background-color: #0B1120;
+    border-right: 1px solid #1E3A5F;
+}
+
+/* Sidebar text */
+[data-testid="stSidebar"] p,
+[data-testid="stSidebar"] label,
+[data-testid="stSidebar"] span {
+    color: #FFFFFF !important;
+}
+
+/* Neon KPI cards */
+[data-testid="stMetric"] {
+    background: linear-gradient(145deg, #111827, #0B1220);
+    border: 1px solid #2563EB;
+    padding: 18px;
+    border-radius: 14px;
+    box-shadow: 0 0 12px rgba(37, 99, 235, 0.12);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    animation: fadeInUp 0.7s ease both;
+}
+
+/* KPI hover effect */
+[data-testid="stMetric"]:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+}
+
+/* KPI labels */
+[data-testid="stMetricLabel"] {
+    color: #CBD5E1 !important;
+}
+
+/* KPI values */
+[data-testid="stMetricValue"] {
+    color: #38BDF8 !important;
+    font-weight: bold;
+}
+
+/* Buttons */
+.stButton > button {
+    background: linear-gradient(90deg, #2563EB, #0284C7);
+    color: white !important;
+    border: 1px solid #38BDF8;
+    border-radius: 8px;
+    padding: 8px 16px;
+    transition: all 0.25s ease;
+}
+
+.stButton > button:hover {
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+    border-color: #7DD3FC;
+}
+
+/* Input fields */
+[data-testid="stSelectbox"] div,
+[data-testid="stMultiSelect"] div {
+    border-radius: 8px;
+}
+
+/* Smooth entrance for KPI cards */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    [data-testid="stMetric"] {
+        animation: none;
+        transition: none;
+    }
+}
+
+/* Neon dashboard title */
+.stApp h1 {
+    color: #38BDF8 !important;
+    text-shadow:
+        0 0 5px #0284C7,
+        0 0 10px #0284C7,
+        0 0 20px rgba(56, 189, 248, 0.7);
+    animation: titleGlow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+    from {
+        text-shadow: 0 0 5px #0284C7;
+    }
+    to {
+        text-shadow:
+            0 0 12px #38BDF8,
+            0 0 24px rgba(56, 189, 248, 0.8);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .stApp h1 {
+        animation: none;
+    }
+}
+
+/* Professional KPI card layout */
+[data-testid="stMetric"] {
+    padding: 20px;
+    border-radius: 16px;
+    border: 1px solid #2563EB;
+    background: linear-gradient(145deg, #0B1220, #111827);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Lift the cards on hover */
+[data-testid="stMetric"]:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(0, 191, 255, 0.45);
+}
+
+/* KPI labels */
+[data-testid="stMetricLabel"] {
+    color: #CBD5E1 !important;
+    font-size: 14px !important;
+}
+
+/* KPI values */
+[data-testid="stMetricValue"] {
+    color: #38BDF8 !important;
+    font-size: 28px !important;
+    font-weight: 700 !important;
+}
+
+/* Dashboard section headings */
+.stApp h2,
+.stApp h3 {
+    color: #38BDF8 !important;
+    border-bottom: 1px solid rgba(56, 189, 248, 0.35);
+    padding-bottom: 8px;
+    margin-top: 22px;
+    text-shadow: 0 0 8px rgba(56, 189, 248, 0.25);
+}
+
+/* Subtle divider styling */
+.stApp hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #2563EB,
+        #38BDF8,
+        transparent
+    );
+    margin: 24px 0;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+# Dashboard title
+st.title("📊 Customer Retention Analytics")
+st.subheader("Customer Engagement & Product Utilization Intelligence")
+
+st.markdown("""
+Explore customer engagement, product utilization, and retention
+patterns through interactive analytics.
+""")
+
+# Keep the rest of your existing dashboard code below
 
 st.markdown(
     '<div class="main-title">📊 Customer Engagement & Retention Analytics</div>',
@@ -159,6 +389,127 @@ with col3:
         f"{product_depth_index:.2f}"
     )
 
+st.markdown("---")
+
+st.subheader("📌 Executive Summary")
+
+st.markdown("""
+<div style="
+    background: linear-gradient(135deg, #0B1220, #111827);
+    border: 1px solid #38BDF8;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.2);
+">
+    <h4 style="color: #38BDF8;">Key Business Findings</h4>
+    <p style="color: white;">
+        This dashboard explores customer engagement, product utilization,
+        financial relationships, and customer exit patterns.
+    </p>
+    <p style="color: white;">
+        The analysis helps identify customer segments with different levels
+        of product usage and retention, supporting more informed business decisions.
+    </p>
+    <p style="color: #93C5FD;">
+        <b>Objective:</b> Understand customer behavior and identify opportunities
+        to improve engagement and retention.
+    </p>
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown("---")
+st.subheader("📊 Customer Engagement Overview")
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.markdown("""
+    <div style="
+        background: #0B1220;
+        border: 1px solid #38BDF8;
+        border-radius: 12px;
+        padding: 18px;
+        min-height: 150px;
+    ">
+        <h4 style="color: #38BDF8;">👥 Customer Engagement</h4>
+        <p style="color: white;">
+            Explore customer activity and understand differences
+            between customer groups.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col2:
+    st.markdown("""
+    <div style="
+        background: #0B1220;
+        border: 1px solid #38BDF8;
+        border-radius: 12px;
+        padding: 18px;
+        min-height: 150px;
+    ">
+        <h4 style="color: #38BDF8;">📦 Product Utilization</h4>
+        <p style="color: white;">
+            Examine product usage patterns and compare the number
+            of products held by customers.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col3:
+    st.markdown("""
+    <div style="
+        background: #0B1220;
+        border: 1px solid #38BDF8;
+        border-radius: 12px;
+        padding: 18px;
+        min-height: 150px;
+    ">
+        <h4 style="color: #38BDF8;">🎯 Customer Retention</h4>
+        <p style="color: white;">
+            Analyze customer exit patterns to identify groups
+            that may need further investigation.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+st.markdown("---")
+st.subheader("📥 Download Analysis Data")
+
+st.download_button(
+    label="📥 Download Customer Data (CSV)",
+    data=df.to_csv(index=False).encode("utf-8"),
+    file_name="customer_engagement_analysis.csv",
+    mime="text/csv",
+    use_container_width=True
+)
+
+st.markdown("---")
+st.subheader("🎯 Customer Retention Insights")
+
+# Calculate customer exit rate
+exit_rate = (df["Exited"].mean() * 100)
+
+st.markdown(
+    f"""
+    <div style="
+        background: linear-gradient(135deg, #0B1220, #111827);
+        border: 1px solid #38BDF8;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 0 12px rgba(56, 189, 248, 0.2);
+    ">
+        <h4 style="color: #38BDF8;">Overall Customer Exit Rate</h4>
+        <h2 style="color: white;">{exit_rate:.2f}%</h2>
+        <p style="color: #CBD5E1;">
+            This percentage represents the share of customers marked as exited
+            in the dataset. Use it as a descriptive indicator of customer retention.
+        </p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
 col4, col5, col6 = st.columns(3)
 
 with col4:
@@ -271,6 +622,8 @@ with col2:
         fig2,
         use_container_width=True
     )
+
+
 
     # Engagement and Product Depth
 
@@ -423,6 +776,46 @@ with col2:
         fig5,
         use_container_width=True
     )
+    fig5.update_layout(
+    template="plotly_dark",
+    paper_bgcolor="#05070D",
+    plot_bgcolor="#05070D",
+    font=dict(
+        color="#FFFFFF",
+        family="Arial",
+        size=12
+    ),
+    title_font=dict(
+        color="#38BDF8",
+        size=20
+    ),
+    margin=dict(
+        l=20,
+        r=20,
+        t=60,
+        b=20
+    ),
+    transition=dict(
+        duration=700,
+        easing="cubic-in-out"
+    )
+)
+
+fig5.update_traces(
+    marker_color=[
+        "#00BFFF",
+        "#2563EB",
+        "#7C3AED",
+        "#00E5FF"
+    ],
+    marker_line_color="#FFFFFF",
+    marker_line_width=1,
+    textfont=dict(
+        color="#FFFFFF",
+        size=13
+    )
+)
+
 
     # Average product depth by customer status
 
@@ -433,7 +826,37 @@ fig6 = px.bar(
     title="Average Product Depth by Customer Status",
     text="NumOfProducts"
 )
+fig6.update_layout(
+    template="plotly_dark",
+    paper_bgcolor="#05070D",
+    plot_bgcolor="#05070D",
+    font=dict(
+        color="#FFFFFF",
+        family="Arial",
+        size=12
+    ),
+    title_font=dict(
+        color="#38BDF8",
+        size=20
+    ),
+    margin=dict(
+        l=20,
+        r=20,
+        t=60,
+        b=20
+    ),
+    transition=dict(
+        duration=300,
+        easing="cubic-in-out"
+    )
+)
 
+fig6.update_traces(
+    marker_color="#2563EB",
+    marker_line_color="#38BDF8",
+    marker_line_width=1.5,
+    textfont=dict(color="#FFFFFF")
+)
 fig6.update_traces(
     texttemplate="%{text:.2f}",
     textposition="outside"
@@ -537,6 +960,31 @@ with col1:
 
     fig7.update_yaxes(
         title="Average Balance"
+    )
+
+    fig7.update_layout(
+        template="plotly_dark",
+        paper_bgcolor="#05070D",
+        plot_bgcolor="#05070D",
+        font=dict(
+            color="#FFFFFF",
+            family="Arial",
+            size=12
+        ),
+        title_font=dict(
+            color="#38BDF8",
+            size=20
+        ),
+        margin=dict(
+            l=20,
+            r=20,
+            t=60,
+            b=20
+        ),
+        transition=dict(
+            duration=700,
+            easing="cubic-in-out"
+        )
     )
 
     st.plotly_chart(
@@ -1684,5 +2132,121 @@ st.markdown("""
         margin-bottom: 25px;
     }
 
+    /* Neon glow for KPI cards */
+[data-testid="stMetric"] {
+    border: 1px solid #00BFFF;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #0B1220, #111827);
+    padding: 18px;
+    box-shadow: 0 0 10px rgba(0, 191, 255, 0.25);
+    animation: neonPulse 1.2s ease-in-out infinite alternate;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Make cards lift when hovered */
+[data-testid="stMetric"]:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px rgba(0, 191, 255, 0.65);
+}
+
+/* Animated neon border glow */
+@keyframes neonPulse {
+    from {
+        box-shadow: 0 0 5px rgba(0, 191, 255, 0.2);
+    }
+    to {
+        box-shadow: 0 0 18px rgba(0, 191, 255, 0.5);
+    }
+}
+
+/* Bright KPI values */
+[data-testid="stMetricValue"] {
+    color: #38BDF8 !important;
+    font-weight: bold;
+}
+
+/* Smooth appearance for dashboard headings */
+.stApp h1,
+.stApp h2,
+.stApp h3 {
+    text-shadow: 0 0 10px rgba(56, 189, 248, 0.35);
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    [data-testid="stMetric"] {
+        animation: none;
+        transition: none;
+    }
+}
+    
 </style>
-""")
+""", unsafe_allow_html=True)
+
+st.markdown("---")
+st.subheader("📘 Project Information & Methodology")
+
+with st.expander("🎯 Project Objective"):
+    st.write("""
+    The objective of this project is to analyze customer engagement,
+    product utilization, financial characteristics, and customer exit patterns.
+
+    The dashboard presents descriptive insights to help users understand
+    customer behavior and identify areas for further investigation.
+    """)
+
+with st.expander("📊 Dataset Overview"):
+    st.write("""
+    The analysis uses customer-level data containing demographic,
+    account, financial, product, and customer exit information.
+
+    The dashboard uses these attributes to compare customer groups
+    and explore patterns in the available dataset.
+    """)
+
+with st.expander("⚙️ Analytical Methodology"):
+    st.write("""
+    1. Load and inspect the dataset.
+    2. Prepare the data for analysis.
+    3. Calculate summary metrics.
+    4. Group customers by relevant characteristics.
+    5. Create interactive visualizations.
+    6. Interpret patterns using descriptive analysis.
+    """)
+
+with st.expander("⚠️ Limitations"):
+    st.write("""
+    This dashboard describes patterns in the available data.
+    Observed relationships do not establish causation.
+
+    The analysis does not guarantee future customer behavior
+    and should be interpreted in the context of the dataset.
+    """)
+
+# ==============================
+# PROJECT FOOTER
+# ==============================
+
+st.markdown("---")
+
+st.markdown("""
+<div style="
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #0B1220, #111827);
+    border: 1px solid #38BDF8;
+    border-radius: 12px;
+    margin-top: 20px;
+">
+    <h4 style="color: #38BDF8;">
+        Customer Engagement & Product Utilization Analytics
+    </h4>
+    <p style="color: #CBD5E1;">
+        A descriptive analytics dashboard for exploring customer behavior,
+        product usage, and customer exit patterns.
+    </p>
+    <p style="color: #94A3B8; font-size: 13px;">
+        Built with Python, Pandas, Plotly, and Streamlit
+    </p>
+</div>
+""", unsafe_allow_html=True)    
