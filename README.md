@@ -140,4 +140,8 @@ Evaluate retention strategies using appropriate business data.
 
 👨‍💻 Author:
 Tirumalakonda Bhanu Karthik
+<<<<<<< HEAD
 Department: CSE (Data Science)
+=======
+Department: CSE (Data Science)
+>>>>>>> 156cf5fdfd90b8230e93c157098acbcca31ad6cb
